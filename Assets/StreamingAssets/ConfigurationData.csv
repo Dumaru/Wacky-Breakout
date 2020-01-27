@@ -1,2 +1,2 @@
-paddleMoveUnitsPerSecond,ballImpulseForce
-2.5,10
+paddleMoveUnitsPerSecond,ballImpulseForce,ballLifeTime,minSpawnTime,maxSpawnTime,standarBlockPoints,bonusblockPoints,pickupBlockPoints,standardBlockProbability,bonusBlockProbability,speedUpBlockProbability,freezerBlockProbability,ballsPerGame
+2.5,10,10,5,10,5,10,15,40,30,20,10,50

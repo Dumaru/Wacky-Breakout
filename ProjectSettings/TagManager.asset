@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ball
+  - ScoreText
+  - StandardBlock
+  - BallsLeftText
   layers:
   - Default
   - TransparentFX

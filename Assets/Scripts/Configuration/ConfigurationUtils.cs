@@ -20,6 +20,20 @@ public static class ConfigurationUtils
     public static float PaddleMoveUnitsPerSecond => configurationData.PaddleMoveUnitsPerSecond;
 
     public static float BallImpulseForce => configurationData.BallImpulseForce;
+
+    public static float BallLifeTime => configurationData.BallLifeTime;
+    public static float MinSpawnTime => configurationData.MinSpawnTime;
+    public static float MaxSpawnTime  => configurationData.MaxSpawnTime;
+    public static int StandarBlockPoints  => configurationData.StandarBlockPoints;
+    public static int BonusBlockPoints  => configurationData.BonusBlockPoints;
+    public static int PickupBlockPoints  => configurationData.PickupBlockPoints;
+
+    public static float StandardBlockProbability => configurationData.StandardBlockProbability;
+    public static float BonusBlockProbability => configurationData.BonusBlockProbability;
+    public static float SpeedUpBlockProbability => configurationData.SpeedUpBlockProbability;
+    public static float FreezerBlockProbability => configurationData.FreezerBlockProbability;
+    public static int BallsPerGame => configurationData.BallsPerGame;
+
     #endregion
     
     /// <summary>
