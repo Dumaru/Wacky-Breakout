@@ -5,6 +5,7 @@ using UnityEngine;
 public class Block : MonoBehaviour
 {
     protected int pointsWorthed;
+    
     // Start is called before the first frame update
     protected virtual void Start()
     {
@@ -22,7 +23,7 @@ public class Block : MonoBehaviour
     /// collider (2D physics only).
     /// </summary>
     /// <param name="other">The Collision2D data associated with this collision.</param>
-    void OnCollisionEnter2D(Collision2D other)
+    protected virtual void OnCollisionEnter2D(Collision2D other)
     {
         if(other.gameObject.tag == "Ball")
         {

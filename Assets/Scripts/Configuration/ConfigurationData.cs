@@ -27,6 +27,9 @@ public class ConfigurationData
     static float speedUpBlockProbability = 20;
     static float freezerBlockProbability = 10;
     static int ballsPerGame = 30;
+    static float freezerEffectDuration = 2;
+    static float speedUpEffectDuration = 2;
+    static float speedUpEffectFactor = 1.5f;
 
 
     #endregion
@@ -54,7 +57,9 @@ public class ConfigurationData
     public float SpeedUpBlockProbability => speedUpBlockProbability;
     public float FreezerBlockProbability => freezerBlockProbability;
     public int BallsPerGame => ballsPerGame;
-
+    public float FreezerEffectDuration => freezerEffectDuration;
+    public float SpeedUpEffectDuration => speedUpEffectDuration;
+    public float SpeedUpEffectFactor => speedUpEffectFactor;
 
     #endregion
 
@@ -106,6 +111,9 @@ public class ConfigurationData
         freezerBlockProbability = float.Parse(values[10]);
         speedUpBlockProbability = float.Parse(values[11]);
         ballsPerGame = int.Parse(values[12]);
+        freezerEffectDuration = float.Parse(values[13]);
+        speedUpEffectDuration = float.Parse(values[14]);
+        speedUpEffectFactor = float.Parse(values[15]);
     }
     #endregion
 }

@@ -33,6 +33,9 @@ public static class ConfigurationUtils
     public static float SpeedUpBlockProbability => configurationData.SpeedUpBlockProbability;
     public static float FreezerBlockProbability => configurationData.FreezerBlockProbability;
     public static int BallsPerGame => configurationData.BallsPerGame;
+    public static float FreezerEffectDuration => configurationData.FreezerEffectDuration;
+    public static float SpeedUpEffectDuration => configurationData.SpeedUpEffectDuration;
+    public static float SpeedUpEffectFactor => configurationData.SpeedUpEffectFactor;
 
     #endregion
     

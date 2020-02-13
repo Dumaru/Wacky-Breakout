@@ -49,6 +49,11 @@ public class LevelBuilder : MonoBehaviour
     }
     private void PlaceBlock(float x, float y)
     {
+
+        GameObject tempBlock = Instantiate(pickupBlockPrefab, new Vector3(x, y, 0f), Quaternion.identity);
+        tempBlock.GetComponent<PickupBlock>().EffectKind = PickupEffect.Speedup;
+
+        /*
         float randomNumber = Random.Range(0,100);
         if(randomNumber < ConfigurationUtils.FreezerBlockProbability){
             GameObject tempBlock = Instantiate(pickupBlockPrefab, new Vector3(x, y, 0f), Quaternion.identity);
@@ -64,5 +69,6 @@ public class LevelBuilder : MonoBehaviour
         }else{
             GameObject tempBlock = Instantiate(standarBlockPrefab, new Vector3(x, y, 0f), Quaternion.identity);
         }
+        */
     }
 }

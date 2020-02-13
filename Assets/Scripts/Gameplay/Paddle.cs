@@ -4,25 +4,54 @@ using UnityEngine;
 
 public class Paddle : MonoBehaviour
 {
+
+    #region Fields
     Rigidbody2D rb2d;
-    private const float BounceAngleHalfRange = 60*Mathf.Deg2Rad;
+    private const float BounceAngleHalfRange = 60 * Mathf.Deg2Rad;
     float halfColliderWidth;
     float halfColliderHeight;
     float tolerance = 0.05f;
+    bool frozen = false;
+    Timer frozenTimer;
+
+
+    #endregion
     // Start is called before the first frame update
     void Start()
     {
 
         rb2d = GetComponent<Rigidbody2D>();
-        halfColliderWidth = GetComponent<CapsuleCollider2D>().size.x/2;
-        halfColliderHeight = GetComponent<CapsuleCollider2D>().size.y/2;
-
+        halfColliderWidth = GetComponent<CapsuleCollider2D>().size.x / 2;
+        halfColliderHeight = GetComponent<CapsuleCollider2D>().size.y / 2;
+        frozenTimer = this.gameObject.AddComponent<Timer>();
+        EventManager.AddFreezerEffectListener(FreezerEffectActivatedHandler);
     }
 
+
+    public void FreezerEffectActivatedHandler(float duration)
+    {
+        if (frozen)
+        {
+            this.frozenTimer.AddTime(ConfigurationUtils.FreezerEffectDuration);
+        }
+        else
+        {
+            this.frozenTimer.Duration = duration;
+            this.frozenTimer.Run();
+        }
+    }
     // Update is called once per frame
     void Update()
     {
-        
+        // Debug.Log("Frozen time left "+frozenTimer.TimeLeft);
+        if(!frozenTimer.Running){
+            frozenTimer.Stop();
+            frozen = false;
+        }else{
+            frozen = true;
+        }
+        // Debug.Log("Frozen "+frozen);
+
     }
 
     /// <summary>
@@ -30,11 +59,13 @@ public class Paddle : MonoBehaviour
     /// </summary>
     void FixedUpdate()
     {
-
-        Vector2 pos = new Vector2(this.transform.position.x+Input.GetAxis("Horizontal")*ConfigurationUtils.PaddleMoveUnitsPerSecond,
-            this.transform.position.y);
-        pos.x = CalculateClampedX(pos.x);
-        rb2d.MovePosition(pos);
+        if (!frozen)
+        {
+            Vector2 pos = new Vector2(this.transform.position.x + Input.GetAxis("Horizontal") * ConfigurationUtils.PaddleMoveUnitsPerSecond,
+                this.transform.position.y);
+            pos.x = CalculateClampedX(pos.x);
+            rb2d.MovePosition(pos);
+        }
     }
 
     /// <summary>
@@ -55,7 +86,7 @@ public class Paddle : MonoBehaviour
             float angleOffset = normalizedBallOffset * BounceAngleHalfRange;
             float angle = Mathf.PI / 2 + angleOffset;
             Vector2 direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
-      
+
             // tell ball to set direction to new direction
             Ball ballScript = coll.gameObject.GetComponent<Ball>();
             ballScript.SetDirection(direction);
@@ -67,16 +98,17 @@ public class Paddle : MonoBehaviour
     /// </summary>
     /// <param name="coll"></param>
     /// <returns></returns>
-    private bool OnTopCollision(Collision2D coll){
+    private bool OnTopCollision(Collision2D coll)
+    {
         bool onTop = false;
         Vector2 point = coll.GetContact(0).point;
-        onTop = point.y > this.transform.position.y + halfColliderHeight-tolerance;
+        onTop = point.y > this.transform.position.y + halfColliderHeight - tolerance;
         // Debug.Log("Coll Point:" +point.ToString()+" Pos paddle "+this.transform.position.ToString());
         // if(!onTop){
         //     Debug.Log("\nOn Top "+onTop.ToString());
         //     coll.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         // }
-        Debug.Log("OnTop "+onTop);
+        // Debug.Log("OnTop " + onTop);
         return onTop;
     }
     /// <summary>
@@ -86,10 +118,13 @@ public class Paddle : MonoBehaviour
     private float CalculateClampedX(float nextPosition)
     {
         float newX = nextPosition;
-        if(newX <= ScreenUtils.ScreenLeft+halfColliderWidth){
-            newX = ScreenUtils.ScreenLeft+halfColliderWidth;
-        }else if(newX >= ScreenUtils.ScreenRight-halfColliderWidth){
-            newX = ScreenUtils.ScreenRight-halfColliderWidth;
+        if (newX <= ScreenUtils.ScreenLeft + halfColliderWidth)
+        {
+            newX = ScreenUtils.ScreenLeft + halfColliderWidth;
+        }
+        else if (newX >= ScreenUtils.ScreenRight - halfColliderWidth)
+        {
+            newX = ScreenUtils.ScreenRight - halfColliderWidth;
         }
         return newX;
     }

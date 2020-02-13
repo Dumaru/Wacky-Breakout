@@ -58,13 +58,29 @@ public class Timer : MonoBehaviour
 		get { return running; }
 	}
 
+	public float ElapsedSeconds => elapsedSeconds;
+
+	public float TimeLeft {
+		get{
+			return this.totalSeconds - elapsedSeconds;
+		}
+	}
     #endregion
 
     #region Methods
 
+	public void AddTime(float time){
+		this.totalSeconds += time;
+	}
+
+	/// <summary>
+	/// Stops the timer
+	/// </summary>
 	public void Stop(){
 		this.running = false;
 		this.started = false;
+		this.elapsedSeconds = 0;
+		this.totalSeconds = 0;
 	}
 
     /// <summary>
