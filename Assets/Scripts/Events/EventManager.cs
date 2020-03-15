@@ -19,21 +19,27 @@ public static class EventManager
     /// Adds the given script as an invoker
     /// </summary>
     /// <param name="invoker">The invoker</param>
-    public static void AddFreezerInvoker(Block invoker)
+    public static void AddInvoker(Block invoker)
     {
         invokers.Add(invoker);
-        foreach (UnityAction<float> listener in listeners)
-        {
-            (invoker as PickupBlock).AddFreezerEffectListener(listener);
-        }
+        // foreach (UnityAction<float> listener in listeners)
+        // {
+        //     //  TODO: Add listeners to all kind of invokers
+
+        // }
     }
 
+    /// <summary>
+    /// Add the given script as an invoker.
+    /// </summary>
+    /// <param name="invoker"></param>
     public static void AddSpeedUpInvoker(Block invoker)
     {
         invokers.Add(invoker);
         foreach (UnityAction<float, float> listener in speedUpListeners)
         {
-            (invoker as PickupBlock).AddSpeedUpEffectListener(listener);
+            PickupBlock pickupBlock = (invoker as PickupBlock);
+            if (pickupBlock != null) pickupBlock.AddSpeedUpEffectListener(listener);
         }
     }
 
@@ -47,17 +53,28 @@ public static class EventManager
         listeners.Add(listener);
         foreach (Block block in invokers)
         {
-            (block as PickupBlock).AddFreezerEffectListener(listener);
+            PickupBlock pickupBlock = (block as PickupBlock);
+            if (pickupBlock != null && pickupBlock.EffectKind.Equals(PickupEffect.Freezer))
+            {
+                pickupBlock.AddFreezerEffectListener(listener);
+            }
         }
     }
 
-
+    /// <summary>
+    /// Adds the given event handler as a listener
+    /// </summary>
+    /// <param name="listener"></param>
     public static void AddSpeedUpEffectListener(UnityAction<float, float> listener)
     {
         speedUpListeners.Add(listener);
         foreach (Block block in invokers)
         {
-            (block as PickupBlock).AddSpeedUpEffectListener(listener);
+            PickupBlock pickupBlock = (block as PickupBlock);
+            if (pickupBlock != null && pickupBlock.EffectKind.Equals(PickupEffect.Speedup))
+            {
+                pickupBlock.AddSpeedUpEffectListener(listener);
+            }
         }
     }
     #endregion

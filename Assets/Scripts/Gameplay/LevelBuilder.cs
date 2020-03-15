@@ -50,25 +50,29 @@ public class LevelBuilder : MonoBehaviour
     private void PlaceBlock(float x, float y)
     {
 
-        GameObject tempBlock = Instantiate(pickupBlockPrefab, new Vector3(x, y, 0f), Quaternion.identity);
-        tempBlock.GetComponent<PickupBlock>().EffectKind = PickupEffect.Speedup;
+        // GameObject tempBlock = Instantiate(pickupBlockPrefab, new Vector3(x, y, 0f), Quaternion.identity);
+        // tempBlock.GetComponent<PickupBlock>().EffectKind = PickupEffect.Speedup;
 
-        /*
-        float randomNumber = Random.Range(0,100);
-        if(randomNumber < ConfigurationUtils.FreezerBlockProbability){
-            GameObject tempBlock = Instantiate(pickupBlockPrefab, new Vector3(x, y, 0f), Quaternion.identity);
-            tempBlock.GetComponent<PickupBlock>().EffectKind = PickupEffect.Freezer;
 
-        }else if(randomNumber < ConfigurationUtils.SpeedUpBlockProbability){
+        float randomNumber = Random.Range(0, 100);
+        if (randomNumber < ConfigurationUtils.SpeedUpBlockProbability)
+        {
             GameObject tempBlock = Instantiate(pickupBlockPrefab, new Vector3(x, y, 0f), Quaternion.identity);
             tempBlock.GetComponent<PickupBlock>().EffectKind = PickupEffect.Speedup;
-
-        }else if(randomNumber < ConfigurationUtils.BonusBlockPoints){
+        }
+        else if (randomNumber < ConfigurationUtils.FreezerBlockProbability)
+        {
+            GameObject tempBlock = Instantiate(pickupBlockPrefab, new Vector3(x, y, 0f), Quaternion.identity);
+            tempBlock.GetComponent<PickupBlock>().EffectKind = PickupEffect.Freezer;
+        }
+        else if (randomNumber < ConfigurationUtils.BonusBlockProbability)
+        {
             GameObject tempBlock = Instantiate(bonusBlockPrefab, new Vector3(x, y, 0f), Quaternion.identity);
-
-        }else{
+        }
+        else
+        {
             GameObject tempBlock = Instantiate(standarBlockPrefab, new Vector3(x, y, 0f), Quaternion.identity);
         }
-        */
+
     }
 }

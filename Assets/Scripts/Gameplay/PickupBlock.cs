@@ -20,12 +20,13 @@ public class PickupBlock : Block
         set
         {
             effectKind = value;
+            Debug.Log("Pickup block "+effectKind);
             this.gameObject.GetComponent<SpriteRenderer>().sprite = (effectKind == PickupEffect.Speedup ? speedUpSprite : freezerSprite);
-            if (effectKind == PickupEffect.Freezer)
+            if (effectKind.Equals(PickupEffect.Freezer))
             {
                 this.effectDuration = ConfigurationUtils.FreezerEffectDuration;
                 this.freezerEffect = new FreezerEffectActivated();
-                EventManager.AddFreezerInvoker(this);
+                EventManager.AddInvoker(this);
             }
             else
             {
@@ -41,7 +42,7 @@ public class PickupBlock : Block
     protected override void Start()
     {
         pointsWorthed = ConfigurationUtils.PickupBlockPoints;
-
+        base.Start();
     }
 
     protected override void OnCollisionEnter2D(Collision2D other){
@@ -49,7 +50,6 @@ public class PickupBlock : Block
             this.freezerEffect.Invoke(this.effectDuration);
         }else{
             this.speedUpEffect.Invoke(this.effectDuration, ConfigurationUtils.SpeedUpEffectFactor);
-
         }
         base.OnCollisionEnter2D(other);
     }
