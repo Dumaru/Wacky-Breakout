@@ -8,6 +8,8 @@ TagManager:
   - ScoreText
   - StandardBlock
   - BallsLeftText
+  - Block
+  - HUD
   layers:
   - Default
   - TransparentFX

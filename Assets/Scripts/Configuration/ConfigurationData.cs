@@ -26,7 +26,7 @@ public class ConfigurationData
     static float bonusBlockProbability = 30;
     static float speedUpBlockProbability = 20;
     static float freezerBlockProbability = 10;
-    static int ballsPerGame = 30;
+    static int ballsPerGame = 5;
     static float freezerEffectDuration = 2;
     static float speedUpEffectDuration = 2;
     static float speedUpEffectFactor = 1.5f;

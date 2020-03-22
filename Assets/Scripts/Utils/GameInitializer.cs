@@ -13,6 +13,7 @@ public class GameInitializer : MonoBehaviour
 	void Awake()
     {
         // initialize screen utils
+        MenuManager.RegisterAsGameOverListener();
         ScreenUtils.Initialize();
         ConfigurationUtils.Initialize();
     }

@@ -3,6 +3,18 @@ using UnityEngine.SceneManagement;
 
 public static class MenuManager
 {
+    public static void RegisterAsGameOverListener()
+    {
+        EventManager.AddGameOverListener(HandleGameOver);
+    }
+
+    public static void HandleGameOver()
+    {
+        Debug.Log("Game Over Case");
+        // Instantiate resource prefab of pause menu
+        Object.Instantiate(Resources.Load("GameOverMenu"));
+    }
+
     public static void GoToMenu(MenuName menu)
     {
 
@@ -36,4 +48,5 @@ public static class MenuManager
         }
 
     }
+
 }

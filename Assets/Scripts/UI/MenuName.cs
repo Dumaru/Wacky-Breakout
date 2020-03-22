@@ -5,5 +5,6 @@ public enum MenuName {
     DIFFICULTY,
     PAUSE,
     HIGH_SCORE,
-    HELP
+    HELP,
+    GAME_OVER
 }

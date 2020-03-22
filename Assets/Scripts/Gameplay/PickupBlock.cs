@@ -41,8 +41,8 @@ public class PickupBlock : Block
     }
     protected override void Start()
     {
-        pointsWorthed = ConfigurationUtils.PickupBlockPoints;
         base.Start();
+        pointsWorthed = ConfigurationUtils.PickupBlockPoints;
     }
 
     protected override void OnCollisionEnter2D(Collision2D other){

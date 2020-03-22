@@ -1,12 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.Events;
 using UnityEngine;
 
 /// <summary>
 /// A timer
 /// </summary>
-public class Timer : MonoBehaviour
+public class Timer1Simple : MonoBehaviour
 {
 	#region Fields
 	
@@ -19,7 +18,7 @@ public class Timer : MonoBehaviour
 	
 	// support for Finished property
 	bool started = false;
-	UnityEvent finishedEvent = new UnityEvent();
+	
 	#endregion
 	
 	#region Properties
@@ -70,10 +69,6 @@ public class Timer : MonoBehaviour
 
     #region Methods
 
-	public void AddTimerFinishedListener(UnityAction listener){
-		this.finishedEvent.AddListener(listener);
-	}
-
 	public void AddTime(float time){
 		this.totalSeconds += time;
 	}
@@ -99,7 +94,6 @@ public class Timer : MonoBehaviour
 			elapsedSeconds += Time.deltaTime;
 			if (elapsedSeconds >= totalSeconds)
             {
-				finishedEvent.Invoke();
 				running = false;
 			}
 		}

@@ -44,10 +44,13 @@ public class Paddle : MonoBehaviour
     void Update()
     {
         // Debug.Log("Frozen time left "+frozenTimer.TimeLeft);
-        if(!frozenTimer.Running){
+        if (!frozenTimer.Running)
+        {
             frozenTimer.Stop();
             frozen = false;
-        }else{
+        }
+        else
+        {
             frozen = true;
         }
         // Debug.Log("Frozen "+frozen);
@@ -91,6 +94,8 @@ public class Paddle : MonoBehaviour
             Ball ballScript = coll.gameObject.GetComponent<Ball>();
             ballScript.SetDirection(direction);
         }
+
+        AudioManager.Play(AudioClipName.PADDLE_HIT);
     }
 
     /// <summary>

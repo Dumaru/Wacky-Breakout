@@ -1,3 +1,4 @@
+using UnityEngine.Events;
 using UnityEngine;
 
 public class BallSpawner : MonoBehaviour
@@ -10,30 +11,43 @@ public class BallSpawner : MonoBehaviour
     private Vector2 lowerLeftCorner;
     private Vector2 upperRightCorner;
 
+
     private void Start()
     {
-        this.spawnTimer = this.gameObject.AddComponent<Timer>();
-        this.spawnTimer.Duration = GetSpawnDelay();
-        this.spawnTimer.Run();
+        spawnTimer = this.gameObject.AddComponent<Timer>();
+        spawnTimer.Duration = GetSpawnDelay();
+        spawnTimer.AddTimerFinishedListener(HandleSpawnTimerFinished);
+        spawnTimer.Run();
 
         GameObject tempBal = Instantiate(ballPrefab);
         BoxCollider2D coll = tempBal.GetComponent<BoxCollider2D>();
         this.lowerLeftCorner = coll.bounds.min;
         this.upperRightCorner = coll.bounds.max;
+
+        EventManager.AddReducedBallsListener(SpawnBall);
+        EventManager.AddDeathdBallsListener(SpawnBall);
+
     }
+
 
     void Update()
     {
         if (retrySpawn)
         {
-            SpawnBall();
+            SpawnBall(0);
         }
-        if (this.spawnTimer.Finished)
+        if (spawnTimer.Finished)
         {
-            SpawnBall();
-            this.spawnTimer.Duration = GetSpawnDelay();
-            this.spawnTimer.Run();
+            HandleSpawnTimerFinished();
         }
+    }
+
+    void HandleSpawnTimerFinished()
+    {
+        SpawnBall(0);
+        spawnTimer.Duration = GetSpawnDelay();
+        spawnTimer.Run();
+
     }
 
     private float GetSpawnDelay()
@@ -41,8 +55,9 @@ public class BallSpawner : MonoBehaviour
         return Random.Range(ConfigurationUtils.MinSpawnTime, ConfigurationUtils.MaxSpawnTime);
     }
 
-    public void SpawnBall()
+    private void SpawnBall(int notUsed)
     {
+
         if (Physics2D.OverlapArea(this.lowerLeftCorner, this.upperRightCorner) != null)
         {
             this.retrySpawn = true;
